@@ -63,13 +63,22 @@ void NCursesDisplay::DisplaySystem(System& system, WINDOW* window) {
   wattroff(window, COLOR_PAIR(3));
   wprintw(window, "]");
   
-  mvwprintw(window, ++row, 2,
-            ("Total Processes: " + to_string(system.TotalProcesses())).c_str());
-  mvwprintw(
-      window, ++row, 2,
-      ("Running Processes: " + to_string(system.RunningProcesses())).c_str());
-  mvwprintw(window, ++row, 2,
-            ("Up Time: " + Format::ElapsedTime(system.UpTime())).c_str());
+  wattron(window, COLOR_PAIR(6));
+  mvwprintw(window, ++row, 2,("Total Processes: "));
+  wattroff(window, COLOR_PAIR(6));
+  wprintw(window, to_string(system.TotalProcesses()).c_str());
+  
+  
+  wattron(window, COLOR_PAIR(6));
+  mvwprintw(window, ++row, 2,("Running Processes: "));
+  wattroff(window, COLOR_PAIR(6));
+  wprintw(window, to_string(system.RunningProcesses()).c_str());
+  
+  wattron(window, COLOR_PAIR(6));
+  mvwprintw(window, ++row, 2,("Up Time: "));
+  wattroff(window, COLOR_PAIR(6));
+  wprintw(window, Format::ElapsedTime(system.UpTime()).c_str());
+  
   wrefresh(window);
 }
 
